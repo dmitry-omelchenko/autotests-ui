@@ -1,0 +1,68 @@
+# ____________________________________________
+# Python
+# ____________________________________________
+
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pdb
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+pip-wheel-metadata/
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# ____________________________________________
+# PyCharm / IntelliJ IDEA
+# ____________________________________________
+
+.idea/
+*.iml
+
+# ____________________________________________
+# pytest
+# ____________________________________________
+
+.pytest_cache/
+
+# ____________________________________________
+# Playwright
+# ____________________________________________
+
+playwright-report/
+test-results/
+*.webm
+*.zip
+
+# By default Playwright stores its browsers inside:
+# NOTE: your project uses Playwright via pytest-playwright → browsers are outside repo
+# Ignore local installed browsers:
+playwright/.local-browsers/
+
+# ____________________________________________
+# OS generated files
+# ____________________________________________
+
+.DS_Store
+Thumbs.db
+
+# ____________________________________________
+# Logs
+# ____________________________________________
+
+*.log
+
+# ____________________________________________
+# Local config files (user-specific)
+# ____________________________________________
+
+.env
+.env.*
