@@ -44,6 +44,6 @@ def test_create_course(courses_list_pages: CoursesListPage, create_course_page: 
     # Checks after the redirect to Courses
     courses_list_pages.check_visible_courses_title()
     courses_list_pages.check_visible_create_course_button()
-    courses_list_pages.check_visible_course_card(
-        'Playwright', 0, '100', '10', '2 weeks'
+    courses_list_pages.course_view.check_visible(
+        0, 'Playwright', '100', '10', '2 weeks'
     )
