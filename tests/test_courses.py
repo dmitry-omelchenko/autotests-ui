@@ -6,19 +6,18 @@ from pages.create_course_page import CreateCoursePage
 
 @pytest.mark.courses
 @pytest.mark.regression
-def test_empty_courses_list(courses_list_pages: CoursesListPage):
-    courses_list_pages.visit("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses")
+def test_empty_courses_list(courses_list_page: CoursesListPage):
+    courses_list_page.visit("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses")
 
-    courses_list_pages.navbar.check_visible('username')
-    courses_list_pages.sidebar.check_visible()
-    courses_list_pages.check_visible_courses_title()
-    courses_list_pages.check_visible_create_course_button()
-    courses_list_pages.check_visible_empty_view()
+    courses_list_page.navbar.check_visible('username')
+    courses_list_page.sidebar.check_visible()
+    courses_list_page.toolbar_view.check_visible()
+    courses_list_page.check_visible_empty_view()
 
 
 @pytest.mark.courses
 @pytest.mark.regression
-def test_create_course(courses_list_pages: CoursesListPage, create_course_page: CreateCoursePage):
+def test_create_course(courses_list_page: CoursesListPage, create_course_page: CreateCoursePage):
     create_course_page.visit('https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/courses/create')
     # Step-by-step checks on the Create Course page
     create_course_page.check_visible_create_course_title()
@@ -42,8 +41,7 @@ def test_create_course(courses_list_pages: CoursesListPage, create_course_page: 
     create_course_page.click_create_course_button()
 
     # Checks after the redirect to Courses
-    courses_list_pages.check_visible_courses_title()
-    courses_list_pages.check_visible_create_course_button()
-    courses_list_pages.course_view.check_visible(
+    courses_list_page.toolbar_view.check_visible()
+    courses_list_page.course_view.check_visible(
         0, 'Playwright', '100', '10', '2 weeks'
     )
