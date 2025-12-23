@@ -2,6 +2,7 @@ from playwright.sync_api import Page, expect
 
 from components.base_component import BaseComponent
 
+
 class EmptyViewComponent(BaseComponent):
     def __init__(self, page: Page, identifier: str):
         super().__init__(page)
