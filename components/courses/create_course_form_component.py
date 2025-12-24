@@ -1,65 +1,42 @@
-from playwright.sync_api import Page, expect
+from playwright.sync_api import Page
 
 from components.base_component import BaseComponent
+from elements.button import Button
+from elements.input import Input
+from elements.text import Text
 
 
-class CreateCourseFormComponent(BaseComponent):
+class CreateCourseExerciseFormComponent(BaseComponent):
     def __init__(self, page: Page):
         super().__init__(page)
 
-        # Course creation form
-        self.create_course_title_input = page.get_by_test_id('create-course-form-title-input').locator('input')
-        self.create_course_estimated_time_input = (
-            page.get_by_test_id('create-course-form-estimated-time-input').locator('input')
+        self.delete_exercise_button = Button(
+            page, 'create-course-exercise-{index}-box-toolbar-delete-exercise-button', 'Delete exercise'
         )
-        self.create_course_description_textarea = (
-            page.get_by_test_id('create-course-form-description-input').locator('textarea').first
+        self.subtitle = Text(
+            page, 'create-course-exercise-{index}-box-toolbar-subtitle-text', 'Exercise subtitle'
         )
-        self.create_course_max_score_input = page.get_by_test_id('create-course-form-max-score-input').locator('input')
-        self.create_course_min_score_input = page.get_by_test_id('create-course-form-min-score-input').locator('input')
+        self.title_input = Input(page, 'create-course-exercise-form-title-{index}-input', 'Title')
+        self.description_input = Input(
+            page, 'create-course-exercise-form-description-{index}-input', 'Description'
+        )
 
-    def fill(
-            self,
-            title: str,
-            estimated_time: str,
-            description: str,
-            max_score: str,
-            min_score: str
-    ):
-        self.create_course_title_input.fill(title)
-        expect(self.create_course_title_input).to_have_value(title)
+    def click_delete_exercise_button(self, index: int):
+        self.delete_exercise_button.click(index=index)
 
-        self.create_course_estimated_time_input.fill(estimated_time)
-        expect(self.create_course_estimated_time_input).to_have_value(estimated_time)
+    def check_visible(self, index: int, title: str, description: str):
+        self.subtitle.check_visible(index=index)
+        self.subtitle.check_have_text(f"#{index + 1} Exercise", index=index)
 
-        self.create_course_description_textarea.fill(description)
-        expect(self.create_course_description_textarea).to_have_value(description)
+        self.title_input.check_visible(index=index)
+        self.title_input.check_have_value(title, index=index)
 
-        self.create_course_max_score_input.fill(max_score)
-        expect(self.create_course_max_score_input).to_have_value(max_score)
+        self.description_input.check_visible(index=index)
+        self.description_input.check_have_value(description, index=index)
 
-        self.create_course_min_score_input.fill(min_score)
-        expect(self.create_course_min_score_input).to_have_value(min_score)
+    def fill(self, index: int, title: str, description: str):
+        self.title_input.fill(title, index=index)
+        self.title_input.check_have_value(title, index=index)
 
-    def check_visible(
-            self,
-            title: str,
-            estimated_time: str,
-            description: str,
-            max_score: str,
-            min_score: str
-    ):
-        expect(self.create_course_title_input).to_be_visible()
-        expect(self.create_course_title_input).to_have_value(title)
-
-        expect(self.create_course_estimated_time_input).to_be_visible()
-        expect(self.create_course_estimated_time_input).to_have_value(estimated_time)
-
-        expect(self.create_course_description_textarea).to_be_visible()
-        expect(self.create_course_description_textarea).to_have_value(description)
-
-        expect(self.create_course_max_score_input).to_be_visible()
-        expect(self.create_course_max_score_input).to_have_value(max_score)
-
-        expect(self.create_course_min_score_input).to_be_visible()
-        expect(self.create_course_min_score_input).to_have_value(min_score)
+        self.description_input.fill(description, index=index)
+        self.description_input.check_have_value(description, index=index)
