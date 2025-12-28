@@ -13,7 +13,7 @@ class DashboardPage(BasePage):
 
         self.sidebar = SidebarComponent(page)  # Add Sidebar component
         self.navbar = NavbarComponent(page)  # Add Navbar component
-        self.dashboard_toolbar = DashboardToolbarViewComponent(page)
+        self.dashboard_toolbar_view = DashboardToolbarViewComponent(page)
 
         # Charts components
         self.students_chart = ChartViewComponent(page, "students", "bar")
