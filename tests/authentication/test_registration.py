@@ -1,3 +1,4 @@
+import allure
 import pytest
 
 from pages.authentication.registration_page import RegistrationPage
@@ -7,6 +8,7 @@ from pages.dashboard.dashboard_page import DashboardPage
 @pytest.mark.regression
 @pytest.mark.registration
 class TestRegistration:
+    @allure.title("Registration with correct email, username and password") # Добавили заголовок
     def test_successful_registration(self, dashboard_page: DashboardPage, registration_page: RegistrationPage):
         registration_page.visit("https://nikita-filonov.github.io/qa-automation-engineer-ui-course/#/auth/registration")
         registration_page.registration_form.fill(
