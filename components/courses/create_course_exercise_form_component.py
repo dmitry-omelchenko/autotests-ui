@@ -1,3 +1,5 @@
+import allure
+
 from components.base_component import BaseComponent, expect
 
 
@@ -8,6 +10,7 @@ class CreateCourseExerciseFormComponent(BaseComponent):
         )
         delete_button.click()
 
+    @allure.step('Check visible create course exercise form at index "{index}"')
     def check_visible(self, index: int, title: str, description: str):
         subtitle = self.page.get_by_test_id(f"create-course-exercise-{index}-box-toolbar-subtitle-text")
         title_input = self.page.get_by_test_id(f"create-course-exercise-form-title-{index}-input")
@@ -22,6 +25,7 @@ class CreateCourseExerciseFormComponent(BaseComponent):
         expect(description_input).to_be_visible()
         expect(description_input).to_have_value(description)
 
+    @allure.step('Fill create course exercise form at index "{index}"')
     def fill(self, index: int, title: str, description: str):
         title_input = self.page.get_by_test_id(f"create-course-exercise-form-title-{index}-input")
         description_input = self.page.get_by_test_id(f"create-course-exercise-form-description-{index}-input")
