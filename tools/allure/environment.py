@@ -1,9 +1,14 @@
+import platform
+import sys
+
 from config import settings
 
 
 def create_allure_environment_file():
     # Create a list of elements in the format {key}={value}
-    items = [f'{key}={value}' for key, value in settings.model_dump().items()]
+    items = [f'{key}={value}' for key, value in settings.model_dump(mode="json").items()]
+    items.append(f'os_info={platform.system()}, {platform.release()}')
+    items.append(f'python_version={sys.version}')
     # Collect all the elements into a single line with hyphens
     properties = '\n'.join(items)
 
