@@ -40,18 +40,16 @@ jobs:
           path: gh-pages
 
       - name: Generates Allure Report with history
-        if: always()
         uses: simple-elf/allure-report-action@v1.13
+        if: always()
         with:
           allure_results: allure-results
           allure_history: allure-history
-          gh_pages: gh-pages
 
       - name: Deploy report to Github Pages
-        if: github.ref == 'refs/heads/main'
+        if: always()
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
           publish_dir: allure-history
-          force_orphan: true
