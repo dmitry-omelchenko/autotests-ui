@@ -1,6 +1,5 @@
 # config.py
 from enum import Enum
-from os.path import exists
 from typing import Self
 
 from pydantic import EmailStr, FilePath, HttpUrl, DirectoryPath, BaseModel
@@ -25,6 +24,7 @@ class TestData(BaseModel):
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
+        extra='allow',
         env_file='.env',
         env_file_encoding='utf-8',
         env_nested_delimiter='.'

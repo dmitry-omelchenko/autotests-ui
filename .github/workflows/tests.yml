@@ -30,8 +30,37 @@ jobs:
       - name: Run Playwright tests with pytest and generate Allure results
         run: |
           pytest -m regression --alluredir=allure-results --numprocesses 2
+          
+      - name: Restore Coverage history
+        if: always()
+        uses: actions/cache/restore@v4
+        with:
+          path: coverage-history.json
+          key: coverage-history-${{ github.run_id }}
+          restore-keys: |
+            coverage-history-
+
+      - name: Generate Coverage report
+        if: always()
+        run: |
+          ui-coverage-tool save-report
+
+      - name: Cache Coverage history
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: coverage-history.json
+          key: coverage-history-${{ github.run_id }}
+
+      - name: Upload Coverage report
+        if: always()
+        uses: actions/upload-artifact@v6.0.0
+        with:
+          name: coverage-report
+          path: coverage.html
 
       - name: Upload allure-results artifact
+        if: always()
         uses: actions/upload-artifact@v6.0.0
         with:
           name: allure-results
